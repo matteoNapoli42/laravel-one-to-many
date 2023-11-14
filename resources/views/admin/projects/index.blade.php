@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="mx-4">
     <h1 class=" text-center">ADMIN INDEX</h1>
     <a class=" btn btn-primary" href="{{route('projects.create')}}">ADD NEW PROJECT</a>
@@ -15,6 +17,7 @@
                     <th scope="col">THUMB</th>
                     <th scope="col">GITHUB</th>
                     <th scope="col">TECHNOLOGIES</th>
+                    <th scope="col">TYPES</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +31,11 @@
                     <td scope="col">{{$project->description}}</td>
                     <td scope="col">{{$project->github}}</td>
                     <td scope="col">{{$project->technologies}}</td>
+                    @if(is_null($project->type))
+                    <td scope="col">N/D</td>
+                    @else
+                    <td scope="col">{{$project->type['name']}}</td>
+                    @endif
                     <td>
                         <button class=" btn btn-secondary">
                             <a class=" text-white" href="{{route('projects.show', $project->id)}}">VIEW</a>

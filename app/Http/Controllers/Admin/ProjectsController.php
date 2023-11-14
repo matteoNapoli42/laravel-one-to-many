@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Type;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
@@ -19,7 +20,8 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('type')->get();
+
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -28,7 +30,8 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $all_types = Type::all();
+        return view('admin.projects.create', compact('all_types'));
     }
 
     /**
@@ -58,7 +61,8 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $all_types = Type::all();
+        return view('admin.projects.edit', compact('project', 'all_types'));
     }
 
     /**
